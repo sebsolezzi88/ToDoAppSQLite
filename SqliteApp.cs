@@ -71,7 +71,7 @@ namespace ToDoAppProgram
                 return false;
             }
         }
-        public static bool DeleteTask(string id)
+        public static bool DeleteTask(int id)
         {
             try
             {
