@@ -1,5 +1,6 @@
 namespace ToDoAppProgram
 {
+    using ClassTaskItem;
     using Microsoft.Data.Sqlite;
 
     class SqliteApp
@@ -24,8 +25,9 @@ namespace ToDoAppProgram
             }
         }
         /* Obtener todas las tareas */
-        public static void GetTasks()
+        public static List<TaskItem> GetTasks()
         {
+            var tasks = new List<TaskItem>(); //Creamos la lista de las tareas
             try
             {
                 using SqliteConnection conn = new(connectionString);
@@ -36,14 +38,19 @@ namespace ToDoAppProgram
 
                 while (reader.Read())
                 {
-                    Console.WriteLine($"ID: {reader["id"]}, Task: {reader["task"]}");
+                    tasks.Add(new TaskItem
+                    {
+                        Id = Convert.ToInt32(reader["id"]),
+                        Task = reader["task"].ToString()!
+                    });
                 }
-
+                
             }
             catch (SqliteException)
             {
                 Console.WriteLine("Error al obtener las tareas.");
             }
+            return tasks;
         }
         /* Agregar una tarea */
         public static bool AddTask(string task)
