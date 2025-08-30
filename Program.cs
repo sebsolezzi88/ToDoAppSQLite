@@ -47,7 +47,36 @@ class Program
                     }
                     break;
                 case "3": //Agregar Editar tarea
-                    Console.WriteLine("Editar tareas");
+                    Console.WriteLine("---------------");
+                    Console.Write("Ingrse el Id de la tarea a editar: ");
+                    userInput = Console.ReadLine()!;
+                    Console.WriteLine("");
+                    /* Intentamos convertir el userInput en entero si lo logra regresa
+                    true más el entero en la variable id */
+                    if (int.TryParse(userInput, out int idn))
+                    {
+                        Console.Write("Ingrese el texto para actualizar la tarea: ");
+                        userInput = Console.ReadLine() ?? "";
+                        if (!string.IsNullOrEmpty(userInput))
+                        {
+                            if (SqliteApp.UpdateTask(idn, userInput))
+                            {
+                                Console.WriteLine("La tarea fue actualizada");
+                            }
+                            else
+                            {
+                                Console.WriteLine("No se puedo actulizar la tarea");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("La tarea debe tener contenido: ");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("ID inválido.");
+                    }
                     break;
                 case "4": //Eliminar Tarea
                     Console.WriteLine("---------------");
