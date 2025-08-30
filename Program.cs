@@ -22,8 +22,24 @@ class Program
                     break;
 
                 case "2"://Agregar Tarea
-                    Console.WriteLine("Agregar tareas");
-                    
+                    Console.WriteLine("Ingrese el nombre de la tarea a guardar: ");
+                    userInput = Console.ReadLine() ?? "";
+                    if (!string.IsNullOrEmpty(userInput))
+                    {
+                        if (SqliteApp.AddTask(userInput))
+                        {
+
+                            Console.WriteLine($"La tarea {userInput} fue agregada correctamente");
+                        }
+                        else
+                        {
+                            Console.WriteLine("La tarea no fue guardada");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("La tarea debe tener contenido: ");
+                    }
                     break;
                 case "3": //Agregar Editar tarea
                     Console.WriteLine("Editar tareas");
@@ -34,7 +50,7 @@ class Program
                 case "5": //Cerrar programa
                     run = false;
                     break;
-                
+
             }
         }
     }
