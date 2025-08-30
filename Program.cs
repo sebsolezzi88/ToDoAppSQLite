@@ -19,7 +19,11 @@ class Program
             {
                 case "1": //Mostrar Tareas
 
-                    SqliteApp.GetTasks();
+                    var tareas = SqliteApp.GetTasks();
+                    foreach (var t in tareas)
+                    {
+                        Console.WriteLine($"ID: {t.Id}, Task: {t.Task}");
+                    }
                     break;
 
                 case "2"://Agregar Tarea
@@ -53,6 +57,7 @@ class Program
                     break;
 
             }
+            Console.WriteLine("---------------");
         }
     }
 }
