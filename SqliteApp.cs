@@ -30,6 +30,7 @@ namespace ToDoAppProgram
             using SqliteConnection conn = new(connectionString);
             sql = "INSERT INTO tasks (task) VALUES (@task)";
             using SqliteCommand cmd = new(sql, conn);
+            cmd.Parameters.AddWithValue("@task", task);
             var rows = cmd.ExecuteNonQuery();
             if (rows > 0)
             {
