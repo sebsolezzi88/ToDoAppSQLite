@@ -44,7 +44,7 @@ namespace ToDoAppProgram
                         Task = reader["task"].ToString()!
                     });
                 }
-                
+
             }
             catch (SqliteException)
             {
@@ -68,6 +68,24 @@ namespace ToDoAppProgram
             catch (SqliteException)
             {
                 Console.WriteLine("Error al agregar la tarea.");
+                return false;
+            }
+        }
+        public static bool DeleteTask(string id)
+        {
+            try
+            {
+                using SqliteConnection conn = new(connectionString);
+                conn.Open(); //Abrir la conexion
+                sql = "DELETE FROM tasks WHERE id=@id"; //query sql
+                using SqliteCommand cmd = new(sql, conn); //Usando comando sql
+                cmd.Parameters.AddWithValue("@id", id); //Agregar parametros al comando sql
+                var rows = cmd.ExecuteNonQuery(); //Ejecutar el comando sql y obtener las filas afectadas
+                return rows > 0; //Si hay filas afectadas regresa true por q se realizó el delete
+            }
+            catch (SqliteException)
+            {
+                Console.WriteLine("Error al borrar la tarea.");
                 return false;
             }
         }

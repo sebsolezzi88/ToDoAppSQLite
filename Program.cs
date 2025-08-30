@@ -18,7 +18,7 @@ class Program
             switch (opcion)
             {
                 case "1": //Mostrar Tareas
-
+                    Console.WriteLine("---------------");
                     var tareas = SqliteApp.GetTasks();
                     foreach (var t in tareas)
                     {
@@ -27,6 +27,7 @@ class Program
                     break;
 
                 case "2"://Agregar Tarea
+                    Console.WriteLine("---------------");
                     Console.Write("Ingrese el nombre de la tarea a guardar: ");
                     userInput = Console.ReadLine() ?? "";
                     if (!string.IsNullOrEmpty(userInput))
