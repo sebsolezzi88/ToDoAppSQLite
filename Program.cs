@@ -18,11 +18,12 @@ class Program
             switch (opcion)
             {
                 case "1": //Mostrar Tareas
-                    Console.WriteLine("Mostrar las tareas");
+
+                    SqliteApp.GetTasks();
                     break;
 
                 case "2"://Agregar Tarea
-                    Console.WriteLine("Ingrese el nombre de la tarea a guardar: ");
+                    Console.Write("Ingrese el nombre de la tarea a guardar: ");
                     userInput = Console.ReadLine() ?? "";
                     if (!string.IsNullOrEmpty(userInput))
                     {
