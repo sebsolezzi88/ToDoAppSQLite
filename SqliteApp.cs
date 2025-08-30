@@ -23,6 +23,28 @@ namespace ToDoAppProgram
                 Console.WriteLine("Error al crear la base de base de detaos");
             }
         }
+        /* Obtener todas las tareas */
+        public static void GetTasks()
+        {
+            try
+            {
+                using SqliteConnection conn = new(connectionString);
+                conn.Open();
+                sql = "SELECT * FROM tasks"; //query sql
+                using SqliteCommand cmd = new(sql, conn);
+                using SqliteDataReader reader = cmd.ExecuteReader(); //Ejecutamos la consulta y obtenemos las tareas
+
+                while (reader.Read())
+                {
+                    Console.WriteLine($"ID: {reader["id"]}, Task: {reader["task"]}");
+                }
+
+            }
+            catch (SqliteException)
+            {
+                Console.WriteLine("Error al obtener las tareas.");
+            }
+        }
         /* Agregar una tarea */
         public static bool AddTask(string task)
         {
