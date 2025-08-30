@@ -80,7 +80,7 @@ class Program
                     break;
                 case "4": //Eliminar Tarea
                     Console.WriteLine("---------------");
-                    Console.Write("Ingrse el Id de la tarea a borrar: ");
+                    Console.Write("Ingrese el Id de la tarea a borrar: ");
                     userInput = Console.ReadLine()!;
                     /* Intentamos convertir el userInput en entero si lo logra regresa
                     true más el entero en la variable id */
