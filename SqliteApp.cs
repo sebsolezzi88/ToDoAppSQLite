@@ -4,6 +4,25 @@ namespace ToDoAppProgram
 
     class SqliteApp
     {
+        static readonly string connectionString = "Data Source=miBase.db";
+        private static string sql;
         
+        /* Crea la tabla si no existe */
+        public static void Init()
+        {
+            using SqliteConnection conn = new(connectionString);
+            try
+            {
+                conn.Open();
+                sql = "CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY AUTOINCREMENT, task TEXT NOT NULL)";
+                using SqliteCommand cmd = new(sql, conn);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqliteException)
+            {
+                Console.WriteLine("Error al crear la base de base de detaos");
+                throw;
+            }
+        } 
     }
 }
