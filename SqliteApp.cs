@@ -10,9 +10,9 @@ namespace ToDoAppProgram
         /* Crea la tabla si no existe */
         public static void Init()
         {
-            using SqliteConnection conn = new(connectionString);
             try
             {
+                using SqliteConnection conn = new(connectionString);
                 conn.Open();
                 sql = "CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY AUTOINCREMENT, task TEXT NOT NULL)";
                 using SqliteCommand cmd = new(sql, conn);
@@ -21,23 +21,24 @@ namespace ToDoAppProgram
             catch (SqliteException)
             {
                 Console.WriteLine("Error al crear la base de base de detaos");
-                throw;
             }
         }
         /* Agregar una tarea */
         public static bool AddTask(string task)
         {
-            using SqliteConnection conn = new(connectionString);
-            sql = "INSERT INTO tasks (task) VALUES (@task)";
-            using SqliteCommand cmd = new(sql, conn);
-            cmd.Parameters.AddWithValue("@task", task);
-            var rows = cmd.ExecuteNonQuery();
-            if (rows > 0)
+            try
             {
-                return true;
+                using SqliteConnection conn = new(connectionString);
+                conn.Open(); //Abrir la conexion
+                sql = "INSERT INTO tasks (task) VALUES (@task)"; //query sql
+                using SqliteCommand cmd = new(sql, conn); //Usando comando sql
+                cmd.Parameters.AddWithValue("@task", task); //Agregar parametros al comando sql
+                var rows = cmd.ExecuteNonQuery(); //Ejecutar el comando sql y obtener las filas afectadas
+                return rows > 0; //Si hay filas afectadas regresa true por q se realizó el insert
             }
-            else
+            catch (SqliteException)
             {
+                Console.WriteLine("Error al agregar la tarea.");
                 return false;
             }
         }
