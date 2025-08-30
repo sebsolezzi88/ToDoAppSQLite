@@ -34,7 +34,6 @@ class Program
                     {
                         if (SqliteApp.AddTask(userInput))
                         {
-
                             Console.WriteLine($"La tarea {userInput} fue agregada correctamente");
                         }
                         else
@@ -51,7 +50,27 @@ class Program
                     Console.WriteLine("Editar tareas");
                     break;
                 case "4": //Eliminar Tarea
-                    Console.WriteLine("Eliminar tareas");
+                    Console.WriteLine("---------------");
+                    Console.Write("Ingrse el Id de la tarea a borrar: ");
+                    userInput = Console.ReadLine()!;
+                    /* Intentamos convertir el userInput en entero si lo logra regresa
+                    true más el entero en la variable id */
+                    if (int.TryParse(userInput, out int id))
+                    {
+                        if (SqliteApp.DeleteTask(id))
+                        {
+                            Console.WriteLine("Tarea borrada.");
+                        }
+
+                        else
+                        {
+                            Console.WriteLine("No se encontró la tarea.");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("ID inválido.");
+                    }
                     break;
                 case "5": //Cerrar programa
                     run = false;
