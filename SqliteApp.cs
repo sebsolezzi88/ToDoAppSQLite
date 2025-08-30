@@ -89,5 +89,34 @@ namespace ToDoAppProgram
                 return false;
             }
         }
+        /* Actulizar una tarea */
+        public static bool UpdateTask(int id, string text)
+        {
+            try
+            {
+                using SqliteConnection conn = new(connectionString);
+                conn.Open(); //Abrir la conexion
+                sql = "UPDATE tasks SET task=@text WHERE id=@id"; //query sql
+                using SqliteCommand cmd = new(sql, conn); //Usando comando sql
+                cmd.Parameters.AddWithValue("@id", id); //Agregar parametros al comando sql
+                cmd.Parameters.AddWithValue("@text", text); //Agregar parametros al comando sql
+                var rows = cmd.ExecuteNonQuery(); //Ejecutar el comando sql y obtener las filas afectadas
+                return rows > 0; //Si hay filas afectadas regresa true por q se realizó el delete
+
+                /*
+                Si son muchos parametros de puede usar esta forma
+                cmd.Parameters.AddRange(new[]
+                {
+                    new SqliteParameter("@id", id),
+                    new SqliteParameter("@text", text)
+                }); 
+                */
+            }
+            catch (SqliteException)
+            {
+                Console.WriteLine("Error al borrar la tarea.");
+                return false;
+            }
+        }
     }
 }
