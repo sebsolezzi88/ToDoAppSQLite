@@ -29,7 +29,7 @@ Permite **agregar**, **listar**, **editar** y **eliminar** tareas de manera senc
 1. Clonar el repositorio:
 
 ```
-git clone https://github.com/tu-usuario/tu-repo.git
+git clone https://github.com/sebsolezzi88/ToDoAppSQLite
 ```
 2. Abrir el proyecto en Visual Studio o Visual Studio Code.
 
